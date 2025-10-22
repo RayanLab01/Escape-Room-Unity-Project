@@ -18,13 +18,13 @@ public class DoorHandle : XRBaseInteractable
     private Vector3 worldDragDirection;
     private Vector3 localDragDirection = Vector3.left;
     [SerializeField]
-    private float slideSpeed; 
+    private float slideSpeed;
 
 
     private void Start()
     {
         maxSlideDistance = 0.8f;
-        DoorWeight = 8;
+        DoorWeight = 4;
         worldDragDirection = transform.TransformDirection(localDragDirection).normalized;
         initialDoorPosition = doorTransform.position; 
         maxDoorPosition = initialDoorPosition + worldDragDirection * maxSlideDistance;

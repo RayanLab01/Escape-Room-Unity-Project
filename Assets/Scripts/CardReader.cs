@@ -21,17 +21,22 @@ public class CardReader : XRSocketInteractor
     public float dotUP;
     public float dotRiLef;
 
-    public GameObject redLight;
-    public GameObject greenLight;
+    public Renderer redLight;
+    public Renderer greenLight;
     public GameObject doorLock;
     public GameObject doorHandle;
 
+    public bool unlocked;
+
     protected override void Awake()
     {
+        base.Awake();
+        
         readDistance = 0.15f;
         currentDistance = 0.0f;
         validRead = false;
         allowedRotationRange = 0.2f;
+        unlocked = false;
     }
 
     public override bool CanSelect(IXRSelectInteractable interactable)
@@ -42,7 +47,7 @@ public class CardReader : XRSocketInteractor
     protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
         base.OnHoverEntered(args);
-        if (greenLight.activeSelf) return;
+        if (unlocked) return;
         Debug.Log("Card Inserted");
         cardTransform = args.interactableObject.transform;
         firstPosition = args.interactableObject.transform.position;
@@ -52,7 +57,7 @@ public class CardReader : XRSocketInteractor
     protected override void OnHoverExited(HoverExitEventArgs args)
     {
         base.OnHoverExited(args);
-        if (greenLight.activeSelf) return;
+        if (unlocked) return;
         Debug.Log("Card Exited");
         lastPosition = args.interactableObject.transform.position;
         diffVector = lastPosition - firstPosition;
@@ -61,15 +66,16 @@ public class CardReader : XRSocketInteractor
         if (validRead & (currentDistance < -readDistance))
         {
             Debug.Log("Card Read");
-            greenLight.SetActive(true);
-            redLight.SetActive(false);
+            unlocked = true;
+            greenLight.material.EnableKeyword("_EMISSION");
+            redLight.material.DisableKeyword("_EMISSION");
             doorLock.SetActive(false);
             doorHandle.GetComponent<DoorHandle>().doorUnlocked = true;
         }
         else
         {
             Debug.Log("Card Reading Failed");
-            redLight.SetActive(true);
+            redLight.material.EnableKeyword("_EMISSION");
         }
         validRead = false;
         cardTransform = null;
@@ -77,7 +83,7 @@ public class CardReader : XRSocketInteractor
 
     private void Update()
     {
-        if (greenLight.activeSelf) return;
+        if (unlocked) return;
         if (cardTransform !=null && CardRotationValid() == false)
         {
             validRead = false;
