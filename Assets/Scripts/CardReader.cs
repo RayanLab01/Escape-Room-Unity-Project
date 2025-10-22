@@ -24,6 +24,8 @@ public class CardReader : XRSocketInteractor
     public GameObject redLight;
     public GameObject greenLight;
     public GameObject doorLock;
+    public GameObject doorHandle;
+
     protected override void Awake()
     {
         readDistance = 0.15f;
@@ -62,8 +64,9 @@ public class CardReader : XRSocketInteractor
             greenLight.SetActive(true);
             redLight.SetActive(false);
             doorLock.SetActive(false);
+            doorHandle.GetComponent<DoorHandle>().doorUnlocked = true;
         }
-        else if (!greenLight.activeSelf)
+        else
         {
             Debug.Log("Card Reading Failed");
             redLight.SetActive(true);
@@ -75,19 +78,27 @@ public class CardReader : XRSocketInteractor
     private void Update()
     {
         if (greenLight.activeSelf) return;
-        if (cardTransform != null && !greenLight.activeSelf) 
+        if (cardTransform !=null && CardRotationValid() == false)
         {
-            Vector3 keyCardUp = cardTransform.forward;
-            Vector3 keyCardRiLef = cardTransform.right;
-
-            dotUP = Vector3.Dot(keyCardUp, Vector3.up);
-            dotRiLef = Vector3.Dot(keyCardRiLef, Vector3.left);
-            if (dotUP < (1 - allowedRotationRange) || dotRiLef < (1 - allowedRotationRange))
-            {
-                validRead = false;
-            }
-
+            validRead = false;
         }
+    }
+
+
+    private bool CardRotationValid()
+    {
+        if (cardTransform == null) return false;
+        Vector3 keyCardUp = cardTransform.forward;
+        Vector3 keyCardRiLef = cardTransform.right;
+
+        dotUP = Vector3.Dot(keyCardUp, Vector3.up);
+        dotRiLef = Vector3.Dot(keyCardRiLef, Vector3.left);
+            
+        if (dotUP < (1 - allowedRotationRange) || dotRiLef < (1 - allowedRotationRange))
+        {
+            return false;
+        }
+        return true;
     }
 
 

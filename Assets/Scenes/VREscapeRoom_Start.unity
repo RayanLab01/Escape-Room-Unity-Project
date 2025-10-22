@@ -1367,7 +1367,7 @@ Transform:
   m_GameObject: {fileID: 545861894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.143, y: 0.505, z: -0.257}
+  m_LocalPosition: {x: -0.143, y: 0.402, z: -0.257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1451,6 +1451,13 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  doorUnlocked: 0
+  doorTransform: {fileID: 1861776039}
+  initialDoorPosition: {x: 0, y: 0, z: 0}
+  maxDoorPosition: {x: 0, y: 0, z: 0}
+  maxSlideDistance: 0.35
+  DoorWeight: 20
+  slideSpeed: 2
 --- !u!1 &619399735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,11 +2740,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 395713496640259988, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5391115
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 395713496640259988, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000023841858
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 395713496640259988, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2774,6 +2781,10 @@ PrefabInstance:
     - target: {fileID: 1024019128184364334, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
       propertyPath: m_Name
       value: DoorPadlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566907168132976773, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.42
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3533,6 +3544,7 @@ MonoBehaviour:
   redLight: {fileID: 1573912420}
   greenLight: {fileID: 262965980}
   doorLock: {fileID: 235037713}
+  doorHandle: {fileID: 591546933}
 --- !u!4 &1545019415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3834652060116321005, guid: 00592b75c913c8440b1b1229fb990ab9, type: 3}
@@ -3937,6 +3949,11 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
+--- !u!4 &1861776039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 395713496640259988, guid: 505ab3b2ca9f8d943940d674d65aac07, type: 3}
+  m_PrefabInstance: {fileID: 1167897335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1866918365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 150315375381964284, guid: e97db2d0c9847b248aa9914c68ccfa8f, type: 3}
@@ -4237,13 +4254,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043126297}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000032782552, y: 0.70710677, z: -0.7071068, w: 0.00000038743013}
-  m_LocalPosition: {x: -0.049999952, y: 0.08000001, z: -0.000000011175871}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: -0.05, y: 0.08, z: -0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1545019415}
-  m_LocalEulerAnglesHint: {x: -270, y: 0, z: -180}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
 --- !u!1 &2114174623 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4945152647328354647, guid: e97db2d0c9847b248aa9914c68ccfa8f, type: 3}
